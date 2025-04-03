@@ -40,14 +40,11 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreProductRequest $request)
-    {
-        \Log::info($request->all());
+    {        
         $productData = array_merge($request->all(), ['created_at' => Carbon::now()]);
         $product = Product::make($productData);
-        \Log::info($this->productsJson);
-        array_push($this->productsJson, $product);
-        Storage::put(Product::getTableName(), json_encode($this->productsJson));
-        \Log::info($product->toArray());
+        array_push($this->productsJson, Product::make($productData));
+        Storage::put(Product::getTableName(), json_encode($this->productsJson));        
         return $product->toJson();
     }
 

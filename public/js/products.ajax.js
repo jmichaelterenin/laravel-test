@@ -62,11 +62,9 @@ function getClosestElementWithClass(element, className) {
 }
 
 function showValidationMessages(form, messages = {}) {
-    // Loop through each input field
-    console.log(messages);
+    // Loop through each input field    
     const inputs = form.querySelectorAll('input, textarea, select');
-    inputs.forEach(input => {
-        console.log(input.name);
+    inputs.forEach(input => {        
         if (!input.validity.valid || messages.hasOwnProperty(input.name)) {
             // Show the invalid-feedback with a custom message            
             const feedback = getClosestElementWithClass(input, 'invalid-feedback');
@@ -106,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
             'Accept': 'application/json', // Important! so that you get back json
             'X-CSRF-TOKEN':  document.querySelector('meta[name="csrf-token"]').content
         }        
-        console.log(headers);
         // submit data
         fetch('/products', {
             method: 'POST',
@@ -127,11 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTable(data);
         })
         .catch(error => {
-            // Handle errors
-            console.error(error);
+            // Handle errors            
             form.classList.remove('was-validated');
-            showValidationMessages(form, error.errors);
-            // console.error('Error:', error);
+            showValidationMessages(form, error.errors);            
         });
     });
 });
